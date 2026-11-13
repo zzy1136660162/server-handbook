@@ -1,6 +1,6 @@
 # Verification record
 
-Initial development date: **2026-11-13**, Asia/Shanghai. Results below describe actual local checks, not an assertion that the future GitHub Actions jobs have run.
+Initial development date: **2026-11-13**, Asia/Shanghai. Results below record the actual initial local checks. The public source is [zzy1136660162/server-handbook](https://github.com/zzy1136660162/server-handbook); current cross-platform CI results are reported separately in [GitHub Actions](https://github.com/zzy1136660162/server-handbook/actions/workflows/ci.yml).
 
 | Check | Actual result |
 | --- | --- |
@@ -12,7 +12,8 @@ Initial development date: **2026-11-13**, Asia/Shanghai. Results below describe 
 | Tool answerability | 10 anonymous-example answers verified through actual read-only MCP calls; not an LLM accuracy benchmark |
 | Linux / Python 3.11 base wheel | Final wheel passed in an isolated Debian-based container, without network or host volumes; CLI roundtrip, Unicode paths, CRLF preservation, revision conflicts and Skill export passed |
 | Native systemd service lifecycle | Simulated command-runner tests only; not executed against a live systemd host |
-| GitHub Actions / public publication | CI provided; no remote workflow, GitHub repository or PyPI publication performed |
+| GitHub source / CI | Public repository and cross-platform checks workflow; consult linked Actions for each commit's actual result |
+| PyPI publication | Manual Trusted Publishing workflow prepared; PyPI account binding and first upload have not been performed |
 
 The real Compose fixture used an anonymous UUID project, one `nginx:alpine` service, a random loopback-only port, no host volumes and no privileged mode. It verified successful HTTP 200, an intentionally wrong expected 201 producing a failed receipt despite a running process, correction and success at the next revision, and a stopped service. All operations refreshed the managed README while retaining hand-written content. Cleanup removed only the fixture's project containers/network; it did not remove volumes, images or other projects.
 
@@ -24,4 +25,4 @@ Unit/integration cases include real SQLite concurrent compare-and-swap, failed h
 
 `tools/verify_installed.py` must run from an installed wheel, not an editable checkout. It uses a disposable anonymous Unicode-path workspace, verifies hand-written CRLF preservation, revision conflicts and exported Skill/schema resources, then exercises the actual MCP console process. `--base-only` verifies the standard-library CLI without installing MCP. Local raw receipts are kept under the ignored `verification/` directory and are excluded from distributions.
 
-Native Ubuntu installation, Linux systemd execution, multiple Python versions beyond the environments above, and real third-party AI-client registration remain unverified. Docker Desktop Compose execution is reported separately from those checks. The packaging checks did not deploy to or reconfigure any existing server.
+Native systemd lifecycle execution and real third-party AI-client registration remain unverified. Additional Linux/Windows and Python-version test results belong to the linked CI runs, separately from the original local checks above. The packaging checks did not deploy to or reconfigure any existing server.

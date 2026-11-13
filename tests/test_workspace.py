@@ -90,7 +90,7 @@ class WorkspaceTests(unittest.TestCase):
         cfg = config.load_config(result["config_path"])
         self.assertEqual(cfg["project_roots"], [str(legacy.resolve())])
         self.assertTrue((records / "state.sqlite3").is_file())
-        self.assertEqual(config.contained_path(cfg, legacy / "existing"), legacy / "existing")
+        self.assertEqual(config.contained_path(cfg, legacy / "existing"), (legacy / "existing").resolve())
         with self.assertRaises(HandbookError):
             config.contained_path(cfg, self.base / "unconfigured")
 
@@ -255,7 +255,7 @@ class WorkspaceTests(unittest.TestCase):
         found = runtime.discover(cfg)
         self.assertFalse(found["registered"])
         self.assertEqual(found["candidates"][0]["state"], "unconfirmed")
-        self.assertEqual(found["candidates"][0]["compose_files"], [str(compose)])
+        self.assertEqual(found["candidates"][0]["compose_files"], [str(compose.resolve())])
         self.assertEqual(registry.list_services(cfg)["total"], 0)
         self.assertEqual(compose.read_bytes(), before)
 
@@ -263,7 +263,7 @@ class WorkspaceTests(unittest.TestCase):
         cfg = self.initialize()
         self.new_registered(cfg)
         entry = documents.handoff(cfg)
-        self.assertEqual(entry["agent_entry"], str(self.workspace / "AGENTS.md"))
+        self.assertEqual(entry["agent_entry"], str((self.workspace / "AGENTS.md").resolve()))
         self.assertEqual(entry["services"][0]["id"], "example")
         self.assertTrue(any("separate" in item for item in entry["boundaries"]))
         self.probe_mock.assert_not_called()
