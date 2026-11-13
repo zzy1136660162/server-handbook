@@ -2,33 +2,34 @@
 
 Server context, deployment registration, and tracked operations for humans and AI agents.
 
-[中文说明](README.zh-CN.md) · [Architecture](docs/architecture.md) · [CLI reference](docs/cli.md) · [MCP setup](docs/mcp.md)
+[中文说明](https://github.com/zzy1136660162/server-handbook/blob/main/README.zh-CN.md) · [Architecture](https://github.com/zzy1136660162/server-handbook/blob/main/docs/architecture.md) · [CLI reference](https://github.com/zzy1136660162/server-handbook/blob/main/docs/cli.md) · [MCP setup](https://github.com/zzy1136660162/server-handbook/blob/main/docs/mcp.md)
 
-[Source](https://github.com/zzy1136660162/server-handbook) · [Report an issue](https://github.com/zzy1136660162/server-handbook/issues) · [PyPI publishing guide](docs/pypi-publishing.zh-CN.md)
+[Source](https://github.com/zzy1136660162/server-handbook) · [Report an issue](https://github.com/zzy1136660162/server-handbook/issues) · [PyPI](https://pypi.org/project/server-handbook/) · [Publishing guide](https://github.com/zzy1136660162/server-handbook/blob/main/docs/pypi-publishing.zh-CN.md)
 
 Server Handbook gives a new agent a predictable place to start, records where services live, and saves actual results from managed Compose/systemd actions. Existing projects can stay in their current directories. Manual README and AGENTS content outside marked blocks is preserved.
 
-**Status:** 0.1.0 alpha. The source and local distributions are usable; this project has not been published to PyPI. Core commands use only the Python standard library. MCP is an optional extra. Service execution targets Linux/Compose; clients and registry operations are portable.
+**Status:** 0.1.0 alpha, available on [PyPI](https://pypi.org/project/server-handbook/0.1.0/). Core commands use only the Python standard library. MCP is an optional extra. Service execution targets Linux/Compose; clients and registry operations are portable.
 
-## Install from this checkout
+## Install
 
 Python 3.11 or newer is required. Use an isolated environment:
 
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
-python -m pip install '.[mcp]'
+python -m pip install 'server-handbook[mcp]==0.1.0'
 server-handbook --help
 ```
 
-To obtain the source first:
+On Windows activate `.venv\Scripts\Activate.ps1`, or call `.venv\Scripts\python.exe` directly. If pipx is installed, use `pipx install 'server-handbook[mcp]==0.1.0'`. Omit `[mcp]` to install only the standard-library CLI.
+
+To install from source instead, obtain the checkout and run the final command inside an activated isolated environment:
 
 ```bash
 git clone https://github.com/zzy1136660162/server-handbook.git
 cd server-handbook
+python -m pip install '.[mcp]'
 ```
-
-On Windows activate `.venv\Scripts\Activate.ps1`, or call `.venv\Scripts\python.exe` directly. For an installed application with pipx, use `pipx install '.[mcp]'` from this checkout or install a supplied local wheel with the MCP extra. There is no npm wrapper and no second runtime.
 
 ## Start a workspace
 
@@ -86,7 +87,7 @@ SQLite state is local application metadata, not an application business database
 server-handbook-mcp --config /srv/workspace/.server-handbook/config.json
 ```
 
-The default interface is read-only stdio. Configure the client to launch this command, locally or through your existing SSH connection. Installing the server alone does not enroll every AI client automatically. `--allow-write` explicitly adds only registration and managed apply tools; it does not expose an arbitrary shell. See [MCP setup](docs/mcp.md).
+The default interface is read-only stdio. Configure the client to launch this command, locally or through your existing SSH connection. Installing the server alone does not enroll every AI client automatically. `--allow-write` explicitly adds only registration and managed apply tools; it does not expose an arbitrary shell. See [MCP setup](https://github.com/zzy1136660162/server-handbook/blob/main/docs/mcp.md).
 
 ## What is recorded
 
@@ -109,6 +110,6 @@ python -m pytest
 python -m build
 ```
 
-Most service-runner tests use isolated temporary workspaces and mocked commands; real loopback HTTP and stdio MCP tests are included. The optional Docker integration test is explicitly enabled with `SERVER_HANDBOOK_DOCKER_TESTS=1`; it uses only its own unique project and cleans it up. See [verification](docs/verification.md) for the checks actually performed and their limits.
+Most service-runner tests use isolated temporary workspaces and mocked commands; real loopback HTTP and stdio MCP tests are included. The optional Docker integration test is explicitly enabled with `SERVER_HANDBOOK_DOCKER_TESTS=1`; it uses only its own unique project and cleans it up. See [verification](https://github.com/zzy1136660162/server-handbook/blob/main/docs/verification.md) for the checks actually performed and their limits.
 
-Contributions: [CONTRIBUTING.md](CONTRIBUTING.md). License: [MIT](LICENSE).
+Contributions: [CONTRIBUTING.md](https://github.com/zzy1136660162/server-handbook/blob/main/CONTRIBUTING.md). License: [MIT](https://github.com/zzy1136660162/server-handbook/blob/main/LICENSE).

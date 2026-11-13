@@ -2,7 +2,9 @@
 
 本项目采用 **GitHub Actions + PyPI Trusted Publishing（OIDC）**。仓库公开和上传 PyPI 是两件独立的事：公开代码不会自动上传安装包，本工作流只允许维护者在 `main` 分支手动触发。
 
-程序和工作流已准备好；这里的配置步骤不等于已经完成 PyPI 注册或发布。PyPI 账号登录和一次性绑定需要账号所有者在官方网站完成，不需要把密码或长期 API token 写进仓库。
+**0.1.0 已于 2026-11-13 发布到 [PyPI](https://pypi.org/project/server-handbook/0.1.0/)**，构建和上传均已通过。[首次发布记录](https://github.com/zzy1136660162/server-handbook/actions/runs/43378082055)
+
+以下一次性配置供维护者核对；本项目后续版本复用现有 Trusted Publisher。新建自己的发行项目时，PyPI 账号登录和一次性绑定需要账号所有者在官方网站完成，不需要把密码或长期 API token 写进仓库。
 
 ## 一次性配置
 
@@ -40,7 +42,7 @@ Pending Publisher 在第一次成功上传时才创建 PyPI 项目并成为正�
 
 ## 发布一个版本
 
-1. 确认 `src/server_handbook/__init__.py` 中的 `__version__` 是准备发布的版本，变更已提交到 `main`，常规 `checks` 工作流已通过。
+1. 确认 `src/server_handbook/__init__.py` 中的 `__version__` 是准备发布的未发布版本，变更已提交到 `main`，常规 `checks` 工作流已通过。`0.1.0` 已存在；后续发布先提升版本，不能再次上传 `0.1.0`。
 2. 打开仓库 [Actions](https://github.com/zzy1136660162/server-handbook/actions)，选择 **Publish to PyPI → Run workflow**。
 3. 分支选择 `main`；`version` 填当前代码版本，首版为 `0.1.0`。这个输入只做一致性核对，不会自动改版本。
 4. 构建作业运行测试、构建 wheel/sdist，执行 `twine check`，再安装该 wheel 验证实际 MCP 标准输入输出连接。默认配置无需第二次审批；只有后续主动设置 Required reviewers 时，才需要在 **Review deployments** 中由授权维护者确认 `pypi`。
@@ -49,7 +51,7 @@ Pending Publisher 在第一次成功上传时才创建 PyPI 项目并成为正�
 
 构建与发布作业分离、只在发布作业申请 `id-token: write`，是 PyPA 推荐的发布方式。[PyPA 官方工作流指南](https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/)
 
-发布成功后，别人可使用：
+用户现在可使用：
 
 ```bash
 pipx install "server-handbook[mcp]==0.1.0"
@@ -66,4 +68,4 @@ GitHub 的 Issue/PR 权限与 PyPI 上传权限分别管理；公开下载源码
 - 名称冲突：PyPI 上没有项目页面不等于名称已为你保留，最终以首次上传结果为准；需要改名时同步核对 `pyproject.toml`、发布页面 URL 和本文配置表。
 - 构建或测试失败：先修代码或打包问题；本流程不会越过失败的构建直接上传。
 
-本配置目前没有执行 PyPI 上传。只有完成官方账号绑定并由维护者手动运行且成功后，才能报告为“已发布”。
+首次发布已完成。后续每个版本仍需根据实际工作流和 PyPI 文件核对结果；普通 push 不会触发上传，已经发布的版本不能覆盖。

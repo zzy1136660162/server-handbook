@@ -13,7 +13,7 @@ Initial development date: **2026-11-13**, Asia/Shanghai. Results below record th
 | Linux / Python 3.11 base wheel | Final wheel passed in an isolated Debian-based container, without network or host volumes; CLI roundtrip, Unicode paths, CRLF preservation, revision conflicts and Skill export passed |
 | Native systemd service lifecycle | Simulated command-runner tests only; not executed against a live systemd host |
 | GitHub source / CI | Public repository and cross-platform checks workflow; consult linked Actions for each commit's actual result |
-| PyPI publication | Manual Trusted Publishing workflow prepared; PyPI account binding and first upload have not been performed |
+| PyPI publication | [0.1.0](https://pypi.org/project/server-handbook/0.1.0/) published on 2026-11-13 through GitHub Actions Trusted Publishing; [build and publish jobs succeeded](https://github.com/zzy1136660162/server-handbook/actions/runs/43378082055), including installed-wheel CLI and real stdio MCP verification on Linux / Python 3.13 |
 
 The real Compose fixture used an anonymous UUID project, one `nginx:alpine` service, a random loopback-only port, no host volumes and no privileged mode. It verified successful HTTP 200, an intentionally wrong expected 201 producing a failed receipt despite a running process, correction and success at the next revision, and a stopped service. All operations refreshed the managed README while retaining hand-written content. Cleanup removed only the fixture's project containers/network; it did not remove volumes, images or other projects.
 

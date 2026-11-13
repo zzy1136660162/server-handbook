@@ -4,28 +4,29 @@
 
 [English](README.md) · [架构与数据归属](docs/architecture.md) · [完整命令](docs/cli.md) · [MCP 接入](docs/mcp.md)
 
-[GitHub 源码](https://github.com/zzy1136660162/server-handbook) · [提交 Issue](https://github.com/zzy1136660162/server-handbook/issues) · [发布到 PyPI](docs/pypi-publishing.zh-CN.md)
+[GitHub 源码](https://github.com/zzy1136660162/server-handbook) · [提交 Issue](https://github.com/zzy1136660162/server-handbook/issues) · [PyPI](https://pypi.org/project/server-handbook/) · [发布指南](docs/pypi-publishing.zh-CN.md)
 
-当前为 **0.1.0 Alpha**，已提供源码和本地构建包，尚未发布到 PyPI。适合个人开发者、小团队、自托管服务器维护者。现有项目可以保留原来的位置；工具保留 README、AGENTS 中人工编写的内容。
+当前为 **0.1.0 Alpha**，已发布到 [PyPI](https://pypi.org/project/server-handbook/0.1.0/)，可直接安装。适合个人开发者、小团队、自托管服务器维护者。现有项目可以保留原来的位置；工具保留 README、AGENTS 中人工编写的内容。
 
 ## 安装
 
-需要 Python 3.11 以上。进入本项目目录，使用独立环境安装：
+需要 Python 3.11 以上。使用独立环境从 PyPI 安装：
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install '.[mcp]'
+python -m pip install 'server-handbook[mcp]==0.1.0'
 server-handbook --help
 ```
 
-Windows 可使用 `.venv\Scripts\Activate.ps1`，也可直接调用环境内的 Python。已安装 pipx 时，可以从源码目录执行 `pipx install '.[mcp]'`。基础 CLI 没有第三方依赖，MCP 是可选附加功能。
+Windows 可使用 `.venv\Scripts\Activate.ps1`，也可直接调用环境内的 Python。已安装 pipx 时，可以执行 `pipx install 'server-handbook[mcp]==0.1.0'`。省略 `[mcp]` 可只安装基础 CLI；基础 CLI 没有第三方依赖。
 
-源码可先从 GitHub 获取：
+需要从源码安装时，在已激活的独立环境中执行：
 
 ```bash
 git clone https://github.com/zzy1136660162/server-handbook.git
 cd server-handbook
+python -m pip install '.[mcp]'
 ```
 
 仓库公开，欢迎提 Issue 或通过 Fork 提交 PR。普通访客不能直接推送或合并到原仓库；是否采纳由维护者决定。
