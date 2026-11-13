@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "demo",
+  "name": "Demo web",
+  "kind": "compose",
+  "state": "prepared",
+  "home": "/srv/workspace/projects/demo",
+  "readme": "/srv/workspace/projects/demo/README.md",
+  "compose": {
+    "project": "handbook-demo",
+    "service": "web",
+    "files": ["/srv/workspace/projects/demo/compose.yaml"]
+  },
+  "local_ports": [
+    {"bind": "127.0.0.1", "port": 18080, "transport": "tcp", "purpose": "Anonymous demo HTTP"}
+  ],
+  "config_paths": ["/srv/workspace/projects/demo/compose.yaml"],
+  "data_paths": [],
+  "secret_refs": [],
+  "depends_on": [],
+  "commands": {"status": "server-handbook show demo"},
+  "checks": [
+    {"type": "http", "url": "http://127.0.0.1:18080/", "expected_status": 200, "timeout_seconds": 5}
+  ],
+  "notes": [
+    "Prepared example; registration is not a deployment or health assertion.",
+    "Image tag nginx:alpine is illustrative; review and pin your own deployment input.",
+    "No persistent application data is mounted by this example."
+  ],
+  "evidence": []
+}

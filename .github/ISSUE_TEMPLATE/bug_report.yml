@@ -1,0 +1,30 @@
+name: Bug report / 问题反馈
+description: Report a reproducible problem with Server Handbook.
+title: "[Bug]: "
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version / 版本
+      description: Output of server-handbook --version.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / 运行环境
+      description: OS, Python, Docker/Compose or systemd versions, and CLI or MCP usage.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction / 复现步骤
+      description: Use a small anonymous example. Include the command, expected behavior and actual result.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Relevant output / 相关结果
+      description: Include the smallest useful error or check result. Remove passwords, tokens and private server data.

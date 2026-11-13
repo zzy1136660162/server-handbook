@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Server Handbook 0.1.0: anonymous example and workflow acceptance questions.
+  This file defines questions; it is not an executed LLM accuracy report.
+
+  Fixture prerequisite, performed OUTSIDE evaluation:
+  initialize a fresh temporary workspace, prepare the release's Compose web/nginx
+  example, and register it once with id=demo, kind=compose, state=prepared,
+  compose.project=handbook-demo, compose.service=web and a documented local
+  endpoint 127.0.0.1:18080. Source must be home/deploy/registry/demo.json; all
+  declared Compose files and the public README must exist. Keep the initialized
+  workspace AGENTS.md. Start MCP with write tools disabled. Do not apply deployments
+  or otherwise mutate this fixture while answering. Native absolute workspace
+  paths may differ; no question depends on a personal path, current uptime,
+  running Docker, or an external network response.
+
+  All ten questions are independent and require only readonly tools/resources.
+  Comments give suggested tool paths, not additional authority to modify state.
+-->
+<evaluation>
+  <!-- 01 Suggested: handbook_handoff -> handbook_list_services ->
+       handbook_get_service -> handbook_read_document(registered readme). -->
+  <qa_pair>
+    <question>In the frozen 0.1.0 anonymous fixture, start from the handoff, locate the registered container-based web example, and confirm its documented loopback endpoint is on port 18080. Which stable Server Handbook service ID identifies that example? Return only the ID, rather than its Compose project or container service name.</question>
+    <answer>demo</answer>
+  </qa_pair>
+  <!-- 02 Suggested: handbook_handoff -> handbook_get_service(demo) ->
+       handbook_read_document(readme). Distinguish declaration from observations. -->
+  <qa_pair>
+    <question>For the frozen 0.1.0 example, find the registered web application and read its maintenance entry. No managed deployment has been applied. What exact declaration state is registered, after separating preparation and registration from live process health or business verification? Return only the state string.</question>
+    <answer>prepared</answer>
+  </qa_pair>
+  <!-- 03 Suggested: handbook_list_services -> handbook_get_service ->
+       handbook_plan_operation(service_id=demo,action=up). -->
+  <qa_pair>
+    <question>Using only the frozen 0.1.0 example, locate the loopback web service and compare its declaration with a readonly up plan. Which Compose project name is explicitly selected by that plan? Return only the project name; do not substitute the registry ID or the service selected within Compose.</question>
+    <answer>handbook-demo</answer>
+  </qa_pair>
+  <!-- 04 Suggested: handbook_list_services -> handbook_get_service ->
+       handbook_read_document(readme) -> handbook_plan_operation(demo,up). -->
+  <qa_pair>
+    <question>For the frozen 0.1.0 registered example, inspect both its maintenance instructions and proposed Compose up arguments. Within the explicitly named Compose project, which single Compose service is targeted by the managed action? Return only the service name, without executing the plan or starting its dependencies.</question>
+    <answer>web</answer>
+  </qa_pair>
+  <!-- 05 Suggested: handbook_handoff -> handbook_get_service(demo) ->
+       handbook_read_document(readme). Check bind plus host-side port. -->
+  <qa_pair>
+    <question>In the frozen 0.1.0 example, identify the web service from handoff and reconcile its registered local_ports with its README. What exact host-side endpoint is intended for a local browser? Return host:port only; distinguish loopback binding from all-interface binding and from the container's internal port.</question>
+    <answer>127.0.0.1:18080</answer>
+  </qa_pair>
+  <!-- 06 Suggested: handbook_get_service(demo) -> handbook_read_document(readme)
+       -> handbook_plan_operation(demo,up). Read plan warnings and command argv. -->
+  <qa_pair>
+    <question>Read the frozen example's deployment entry and obtain a readonly up plan. Which exact flag in the mutating Compose command implements the stated limit that this tool manages the named service while dependency startup remains outside this action? Return one flag only, including its leading hyphens. Do not execute the command.</question>
+    <answer>--no-deps</answer>
+  </qa_pair>
+  <!-- 07 Suggested: handbook_handoff -> handbook_get_service ->
+       handbook_plan_operation(demo,up). Inspect preflight, not action commands. -->
+  <qa_pair>
+    <question>For the frozen 0.1.0 web example, compare the planned preflight and deployment command after locating its declaration. The preflight validates Compose configuration without dumping the interpolated configuration. Which exact flag is used for that behavior? Return one flag only; do not confuse it with detach or dependency-control flags from the deployment step.</question>
+    <answer>--quiet</answer>
+  </qa_pair>
+  <!-- 08 Suggested: handbook_get_service(demo) -> handbook_read_document(readme)
+       -> handbook://instructions or handbook_handoff. Derive source basename. -->
+  <qa_pair>
+    <question>Cross-check the frozen example's service details, maintenance README and workspace workflow. A future metadata update belongs in the service's editable declaration, followed by explicit registration. What is the basename of that source file? Return the filename with extension only, rather than the global configuration, state database or generated README.</question>
+    <answer>demo.json</answer>
+  </qa_pair>
+  <!-- 09 Suggested: handbook_handoff -> handbook://instructions ->
+       handbook_get_service(demo) -> handbook_read_document(readme). -->
+  <qa_pair>
+    <question>A new agent has no previous conversation. Use the frozen fixture's handoff and instructions resource, then follow the example service's README to distinguish workspace rules from service-specific notes. What is the filename of the workspace's fixed Agent instruction entry? Return the filename only, independent of the host's absolute workspace path.</question>
+    <answer>AGENTS.md</answer>
+  </qa_pair>
+  <!-- 10 Suggested: handbook_handoff -> handbook_get_service(demo) ->
+       handbook_read_document(readme) -> handbook_list_operations(service_id=demo)
+       -> handbook_plan_operation(demo,up). Do not request runtime or execute. -->
+  <qa_pair>
+    <question>For the frozen 0.1.0 example, compare its prepared declaration, maintenance README, operation receipts and readonly up plan. Is the following inference valid: because registration succeeded and a plan can be generated, the tool has already started the web service and verified the application's business behavior? Return exactly True or False. Do not start a service or create records to answer.</question>
+    <answer>False</answer>
+  </qa_pair>
+</evaluation>

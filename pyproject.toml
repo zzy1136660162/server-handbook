@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "server-handbook"
+dynamic = ["version"]
+description = "Durable server context, deployment registry, and tracked operations for humans and AI agents"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Server Handbook contributors"}]
+keywords = ["mcp", "devops", "self-hosted", "deployment", "agents", "handoff"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: System :: Systems Administration",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/zzy1136660162/server-handbook"
+Repository = "https://github.com/zzy1136660162/server-handbook"
+Issues = "https://github.com/zzy1136660162/server-handbook/issues"
+Documentation = "https://github.com/zzy1136660162/server-handbook/blob/main/README.zh-CN.md"
+
+[project.optional-dependencies]
+mcp = ["mcp==2.3.0"]
+dev = ["build>=1.2", "pytest>=8", "jsonschema>=4.20"]
+
+[project.scripts]
+server-handbook = "server_handbook.cli:main"
+server-handbook-mcp = "server_handbook.mcp:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "server_handbook.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+server_handbook = ["assets/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120

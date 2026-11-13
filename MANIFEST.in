@@ -1,0 +1,7 @@
+include LICENSE README.md README.zh-CN.md CONTRIBUTING.md SECURITY.md AGENTS.md .gitignore .gitattributes
+recursive-include .github *.yml *.md CODEOWNERS
+recursive-include docs *.md *.xml
+recursive-include examples *.md *.json *.yaml
+recursive-include tests *.py
+recursive-include tools *.py
+recursive-include src/server_handbook/assets *
